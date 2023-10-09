@@ -1,0 +1,130 @@
+.data
+myArray WORD 2,4,6,8
+.code
+mov ax, myArray[2]
+
+Ex of printing the array
+.data
+myArray WORD 2,4,6,8
+.code
+Main PROC
+mov eax, 0
+mov ECX, 5
+Mov ebx, 0
+
+L1:
+mov ax, myArray[EBX]
+ADD EBX, 2
+CALL writeInt
+endl
+LOOP L1
+
+exit
+Main ENDP
+END main
+
+You can’t use a variable as an index. You must use a register or a literal value. A value of 2 is added
+to the ebx each time through the loop because each element of the array is a WORD apart if the
+array was created as a BYTE you could then simply use the inc instruction to increment the index by
+one to the next offset. If the array was created as a DWORD you would need to increment the ebx
+by 4
+
+The TYPE operator
+
+The TYPE operator returns the size in bytes of a data type. It can be used to compute the index
+based on the type. The following is a modification of the previous example. This time the TYPE
+operator is used instead of using 2
+.data
+myArray WORD 2,4,6,8
+.code
+Main PROC
+mov eax, 0
+mov ECX, 5
+Mov ebx, 0
+
+L1:
+mov ax, myArray[ebx]
+add EBX, TYPE WORD
+call writeInt
+endl
+LOOP L1
+exit
+
+Main ENDP
+END main
+
+It’s not the best to have literal values floating around all over your code.. also if you were to attempt
+to port this code to another system where the WORD data type is not 2 bytes then you would not
+have to change the value everywhere you used it
+
+Length of operator
+Cout s the number of elements in an array
+
+.code
+Mov ECX, LEGNTHOF array1 ;the length of array1 is 32
+
+Declaring an array with DUP
+
+The dup instruction means duplicate and it has this syntax
+
+Name type #elements DUP(value)
+
+Array1 BYTE 20 DUP (0) ;20 BYTES ALL EQUAL TO 0
+
+DIRECT OFFSET OPERANDS
+
+Uh this is useful when you want access an array value
+YOU CAN ACCESS MEMEORY LOCATIONS THAT MAY NOT HAVE EXPLICIT LABELS
+YOU CAN ADD A DISPLACEMENT TO THE NAME OFF A VARIABLE CREATING A DIRECT OFFSET
+OPERAND. THIS IS USEFUL WHEN ACCESSING ARRAYS
+
+.data
+
+ArrayB BYTE 10h, 20h, 30h, 40h
+
+.code
+
+Main PROC
+mov al, [arrayB+1]
+Exit
+Main ENDP
+End MAIN
+
+The assembler doesn’t provide nay range checking. If you index an element past the end of the
+array you will not receive an error. The next byte will simply be retrieved
+
+It’s important to remember that if your using a data type other than byte, you need to add the
+apppropiate value to access the next element of the array. For example, a WORD is 2 BYTES and
+DWORD is 4 bytes
+
+.data
+arrayW word 1000h, 2000h, 3000h
+arrayD DWORD 1,2,3,4
+
+.code
+Main PROC
+mov ax, [arrayW+2] ;20000h
+mov ax, [arrayW+4] ;30000h
+mov eax, [arrayD+4] ;eax = 2h
+exitT
+
+XCHG instruction
+
+Exchanges the values of two operands. At least one operand must be a register. No immediate
+operands are permitted
+
+.data
+Var1 word 1000h
+Var2 word 2000h
+
+.code
+Main PROC
+
+xchg ax, bx ;exchange 16 bit regiserteries
+xchg ah, al
+xchg var1, bx ;exchange memeory, register
+xchg eax, ebx
+xchg var1, var2 ;error two memory operands
+exit
+Main ENDP
+End main
