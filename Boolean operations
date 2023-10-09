@@ -1,0 +1,10 @@
+Operation		 Description
+AND		 	 	 Boolean AND operation between a source operand and a destination operand
+OR	 	 	 	 Boolean OR operation between a source operand and a destination operand
+XOR		 	 	 Boolean exclusive OR operation between a source operand and a destination 
+b. 		 operand
+BOT		 	 	 Boolean NOT operation on a destination operand
+TEST	 	 	 Implied Boolean AND operation between a source and destination operand
+B. setting the CPU flags appropriately
+BT, BTC, BTR, BTS       Copy bit n from the source operand to the carry flag and complement/reset/set
+B.                      the same bit in the destination operand
