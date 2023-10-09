@@ -1,0 +1,53 @@
+A global variable is a variable that is defined in the data segment of a .ask file and can be accessed
+by all procedures that are within that file.
+When you write a procedure you want that procedure to be self contained.
+
+Think about how the writeString and writeInt procedures work for a second
+
+The writeString procedure has no idea what you or anyone else are going to name their variables.
+What is done in the case of writeString is that the offset of an array Is placed into the edx register
+and the procedure is called
+The writeString procedure expects the information to be written to the screen to be in the edx
+register
+
+If it is not then the procedure will not work. The writeString procedure only works if it is called
+properly. It has no access to the names of the variables you have created in your data segment
+
+Coupling and cohesion
+When writing procedures there are two things should you strive to achieve
+1. Your procedure should be loosely coupled
+2. Your procedure should be highly cohesive
+
+Coupling refers to how tightly integrated your code is into your program.
+Ideally you want your code to be as portable as possible so that you can use it in other programs.
+If a function is too dependent on the program it was written in, it can can’t be easily used else where
+
+Cohesion has to do with how many things your code does. Ideally you want your functions to do
+one thing and one thing only
+
+1. Coupling is how many different files/procedures are in your code (how integrated your code is
+for your program)
+2. Cohesion is how many fucntions your code is (cohesive like water)
+
+If you are using registers in your procedure, then it is important that you save and restore all the
+register back to the state they were in before the procedure was called.
+Of course if the answer is in one of the registers to be modified . Not restoring the registers could
+have and adverse affect on the procedure calling your procedure.
+
+Empty out the registers after your procedure (restore the registers back to what they were before the
+procedure is called)
+
+The pushad and popad instructions push all of the 32 bit general registers on the stack. The pushed
+instruction pushes the registers in the following order
+
+EAX, ECX, EDX, EBX, ESP
+
+Ex::
+
+MyProc PROC
+PUSHAD
+
+POPAD
+Ret
+
+MyProc ENDP
