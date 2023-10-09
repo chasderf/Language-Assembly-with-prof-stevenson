@@ -1,0 +1,51 @@
+Row-major - where the first row appears at the beginning of the memeory block, the first element of
+the second row begins at the end of the last column of the first row
+
+Column -major - where the elements of the first column appear at the beginning of the memeory
+block and the beginning of the second column begins at the end of the first column
+
+Most programmers think of 2d arrays in row major fashion. Since this is the most common, it will be
+the only ordering discussed here
+
+If you study c you will find that when it comes to 2d. Arrays you almost always have to sate the
+number of elements in the row (rowSize). To make this simple for us we can simply calculuate it. At
+the time we initialize the values
+
+To declare and empty 2d array you use nested DUP statements
+
+MyTable BYTE 3 DUP(4 DUP (?))
+
+Where the outer DUP is the number of rows and the inner DUP is the number of columns
+
+Push and pop
+
+At this point it may be important to talk about the push and pop instructions. When you build your
+program an area of memeory called the stack gets automatically created for your program. The
+stack allows you to save and retrieve variables and data in a very efficient fashion. The stack is
+considered a LIFO or last in first out structure where data is placed in it like creating. a stack of
+plates. Logically the last plate you place on the top of the pile will be teh first one you take off
+
+There are a few instruction that will allow you to add and remove data to the stack. Here we are only
+concerned with push and pop. The push instruction will allow you to add data to the top of the
+stack and the pop instruction will allow you to remove data from the top of the stack
+
+Push eax ;add the contents fo the eax to the top of the stack
+Pop eax ; remove the value from the top of the stack and put it in the eax
+
+In high level languages the calculation for the location of an item in an array is computed for you
+you simply need to put the row column indexes within brackets
+
+MyArray [1] [2]
+
+Unfortunately computing the location of an item in a 2d array in assembly is going require you to
+compute it. As Irvine points out the location of an element can be computed bu adding the base
+
+address to the index
+
+In this example, the base address is 500h. If we want to get at the char ‘E” we simply add 4 to the
+base. Pretty simple
+
+The problem here is that it is easier for us to think in row column fashion. To compute the location
+given the row column indexes we would have to multiply the length of the row (number of columns)
+with the row index and then add the column index. Given the above example of char ‘E” being at
+location 504h
