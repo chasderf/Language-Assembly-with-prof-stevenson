@@ -1,0 +1,20 @@
+In an earlier unit we looked at arrays which was our first look into creating our own data types. As
+we saw an array is homogenous type but it is still an abstract data type that the programmer
+declares
+
+Primitive types BYTE, WORD, DWORD, etc. are built into the language at and defined by you at
+the .code info
+
+You can use any of these types and combine them to create a structure.
+Unlike arrays members of structures are not homogenous. This means that you can mix as many
+types as you need to create a structure. You can also have an array of structures that you define
+
+Point STRUCT
+X DWORD ?
+Y DWORD ?
+Point ENDS
+
+A structure is defined by giving the struct a name that you create followed by the struct keyword.
+
+The variables within the body of the structure are called member variables and you can put any valid
+x86 assembly data type within the body of the structure. You can even put another struct there
