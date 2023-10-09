@@ -1,0 +1,3 @@
+Using literal values is not usually a good thing. This can be fixed by using the SIZEOF operator
+
+Add EDX, SIZEOF person.first
