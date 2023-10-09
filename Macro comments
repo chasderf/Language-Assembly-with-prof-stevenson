@@ -1,0 +1,7 @@
+Macro comments
+
+If you use an ordinary comment in a macro it gets expanded when the macro is invoked and the
+code substitution takes place. If you want to omit the comments from the expanded code you
+simply use a double semicolon
+
+;; this is a macro comment
