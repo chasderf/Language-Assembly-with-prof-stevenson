@@ -1,0 +1,21 @@
+The local directive
+
+The local directive is supplied by masm to make the creation of local variables easy. You simply give
+the variable a name and specify the type of data the variable will hold. The local directive also
+serves as a substitute for the enter instruction and has the following syntax::
+
+SumThree PROC
+LOCAL sumVar : DWORD
+
+Ret
+SumThree ENDP
+
+Notice that the prologue is no longer needed and there is no need to leave the statement. The local
+directive supplies all of this for you. You can have more than one local variable,
+they simply need to be separated by a comma
+
+MyProc PROC
+LOCAL val1 : DWORD, val2 BYTE
+
+ret
+MyProc ENDP
