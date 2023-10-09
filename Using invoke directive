@@ -1,0 +1,67 @@
+The INVOKE directive allows you to call procedures similarly to the way you would in. A high level
+language like C. You simply supply the parameters with a comma when you invoke the procedure
+
+INVOKE procName, var1, var2, var3
+
+Because the assembler doesn’t know what the variables var1, var2, and var3 are you must
+prototype your procedure to specify the data types. This prototype must be in global scope and is
+typically found in an include file
+
+You can see many prototypes by opening asmlib.inc . Be sure not to modify them though
+
+To see how INVOKE works lets look at the sumThree procedure again. This time using INVOKE
+
+INCLUDE asmlib.inc
+
+SumThree PROTO,
+valA: DWORD, valB : DWORD, valC : DWORD
+
+.data
+val1 DWORD 20
+val2 DWORD 40
+val3 DWORD 60
+
+.code
+
+main PROC
+INVOKE sumThree, val1,val2, val3
+call writeInt
+endl
+
+exit
+Main ENDP
+
+SumThree PROC, valA : DWORD, valB : DWORD, valC : DWORD
+
+mov EAX, valA
+add EAX, valB
+add EAX, valC
+
+ret
+
+sumThree ENDP
+END main
+
+A big benefit to using INVOKE is that the stack operations are managed for you. In the above
+procedure the values passed to the procedure is called a parameter list. This list (valA, valB, valC)
+are like local variables that have been created to hold the values pushed onto the stack when
+invoked from main
+
+The procedure is explained first because you can easily make a prototype from what I call the
+procedure heading. If you take the first two lines of the procedure and copy it. Then place it in global
+scope (the top of the file in this case) and change PROC to PROTO you have the prototype for the
+procedure.
+
+In main you use INVOKE followed by the procedure name, followed by the list of values you want to
+
+pass the procedure. They must also be superheated by a comma
+
+It should be noted that you can use literal values or variables when invoking a procedure
+
+Main PROC
+iNVOKE sumThree, 2, 4, 6 ;use literal values
+call WriteInt
+endl
+
+exit
+Main ENDP
