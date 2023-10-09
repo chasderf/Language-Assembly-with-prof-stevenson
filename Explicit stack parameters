@@ -1,0 +1,24 @@
+Explicit stack parameters
+
+A couple of things from the above example need explanation. First, in the procedure the stack is
+being accessed using a constant offset from the EBP
+
+Cleaning up the stack: when a function is called the address of the location to return to is stored
+on the stack. When your procedure returns it is important to clean up anything that you pushed onto
+the stack
+If you don’t, the proper return address will not be popped into the instruction pointer
+
+When you push parameters onto the stack and then simply return the values that were left on the
+stack remain and could cause a memeory leak. This may not seem like a big deal when writing small
+programs because the stack gets cleaned up when the program exits.
+
+If the code were placed in a large loop twelve bytes of data would simply be added each time the
+loop ran. Eventually the stack space would be depleted. To clean up the stack you could employ the
+strategy of high level languages and use standard calling conventions
+
+Using standard calling conventions
+
+You will see standard calling conventions labeled STDCALL. As stated this is a common way to
+clean up the stack. Again, this is the way C languages handle parameter passing. This works by
+adding the number of bytes pushed onto the stack to the RET statement. This will add the value to
+the EBP on return. You should note that C pushes arguments onto the stack in reverse order
