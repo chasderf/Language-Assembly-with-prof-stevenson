@@ -1,0 +1,32 @@
+Hmm. So the EBP counts what base your talking about with the stack
+If you are dealing with different variables and want to re-allocate the stack to give a purer version of
+a
+
+Stack offset
+
+Variable BYTE STACK OFFSET
+
+X 4 EBP-4
+Y 4 EBP-8
+NAME 20 EBP-28
+Z 8 EBP-36
+
+X_LOCAL EQU DWORD PTR [EBP - 4]
+Y_LOCAL EQU DWORD PTR [EBP-8]
+
+MOV ESP, EBP ;THIS DESTROYS LOCAL VARIABLES
+
+MySub PROC
+push EBP
+mov ebp, esp
+sub ESP, 36
+mov BYTE PTR [EBP-4], ‘X’
+MOV DWORD PTR [EBP - 8], 10
+MOV DWOD PTR [EBP-28, ‘B’
+MOV DWORD PTR [EBP-32], INFO
+MOV DWORD PTR[EBP-36], INFO
+
+MOV ESP, EBP ;DESTROYS LOCAL VARIABLES
+POP EBP ;MOVES TO THE NEXT BASE
+RET
+MYSUB ENDP
