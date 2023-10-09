@@ -1,0 +1,62 @@
+ESI and EDI are for high speed data transfers
+
+ESI is the source index
+The edi is the destination index
+
+Use the ESI and EDI makes them ideal for memory addresses,
+
+Your options to move the cursor to the biginning of the next line are to use the writeLine which adds
+a new line to the end of the output or endl which outputs a new line to the console window. You can
+simply add a carriage return line-feed pair to the end of the string. This is actually 2 characters
+
+0dh ;carriage return
+0ah ;line feed
+
+String primitive instructions
+
+Instruction description
+MOVSB, MOVSW, MOVSD Move string data. Copy data from memeory
+addressed by ESI to memory addressed by edi
+
+CMPSB, CMPSW, CMPSD compare strings. Compare the contents of two
+
+memory locations addressed by ESI and EDI
+
+SCASB, SCASW, SCASD scan string. Compare the accumulator (al, ax, eax) to
+the contents of the memory addressed by the edi
+
+STOSB, STOSW, STOSD store string data. Store the accumulator contents.
+into the memory addressed by EDI
+
+LODSB, LODSW, LODSD load accumulator from string. Load memory
+addressed by ESI into the accumulator
+
+The repeat prefix
+The above string primitive instructions process only a single memory value or pair of values. If you
+add one of the repeat prefixes you can process and entire array using a single instruction. The
+repeat prefixes use the ECX register as a counter to determine the number of times to repeat.
+
+Repeat prefix
+
+Instruction description
+REP repeat while the ECX > 0
+REPZ, REPE repeat while the zero flag is set and the ECX > 0
+REPNZ, REPNE repeat while the zero flag is clear and the ECX > 0
+
+The direction flag
+The value of the direction flag has an impact on the direction of the repeat instruction. You can set
+and store the direction flag using STD and CLD
+
+CLD - clear the direction flag. The repeat instruction increments (forward direction) . Address
+sequence goes from low to high
+
+STD - set the direction flag. The repeat instruction decrements (reverse direction) .
+Address equine goes from high to low
+
+Copying a string
+We can use the movsb instruction to easily copy a string from one location to another.
+1. Load ESI with offset of string to copy from
+2. Load EDI with offset of string to copy to
+3. Mov number of character to copy into ECX
+4. Clear the direction flag for forward copy
+5. Call rep movsb
