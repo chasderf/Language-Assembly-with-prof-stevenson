@@ -1,0 +1,50 @@
+Array of structures
+
+You can create an array of structures the same way
+
+You can use any other data type. A struct is a data type that you have defined. You can declare an
+array fo struct s by comma separating the values
+
+Person STRUCT
+First BYTE 16 DUP(0) ;member variables
+Last BYTE 16 DUP(0)
+
+Person ENDS
+
+.data
+
+people Person <“joe “, “smith”>, <“Glenn”, “Stevenson”>, <“Jane”,doe”>
+.code
+
+You can also print out an array of struct s using either indirect or direct addressing. The following
+prints the above array using direct addressing:
+
+INCLUDE asmlib.inc
+
+Person STRUCT
+First BYTE 16 DUP(0)
+Last BYET 16 DUP(0)
+Person ENDS
+
+.data
+people Person <“joe “, “smith”>, <“Glenn”, “Stevenson”>, <“Jane”,doe”>
+.code
+Main proc
+
+Mov ECX,3
+Mov EDI,0
+L2:
+Lea edx, people [edi].first ;load the address of the first name
+
+Call writeLine
+Lea edx, people[edi].last ;edi holds offset
+Call writeLine
+Endl
+
+Add edi, TYPE person ;increment by the size of a person struct
+
+LOOP L2
+
+Exit
+Main ENDP
+END main
