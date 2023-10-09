@@ -1,0 +1,11 @@
+Since language assembly is a low level machine language, it is part of the primitive types of the c++
+language . Primitive types are nothing more than the smallest data type that a language can have
+
+Arrays are the first outlook to create abstract data types
+
+Definition :: an array is a contiguous group of homogenous elements
+
+Contiguous meaning that they sit next to each other in memory one right after another in sequential
+fashion
+
+Homogenous meaning that they are always The same type
