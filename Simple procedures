@@ -1,0 +1,29 @@
+What are you really doing when you write a piece of software? The answer is that you are solving
+some sort of problem. The easiest way to tackle the problem is to break the large problem into
+several smaller problems and then tackle the smaller problems one at a time. In computer science
+we have this thing called a stepwise refinement.
+
+After you have written a procedure and would like to use it, all you have to do is “call” it
+
+First some procedures need to be supplied additional information before they can be used.
+Other types of procedures don’t need any information, before they can be used. They’ll just supply
+information back to you
+
+Some procedures do both, they need information to process and return some kind of value back to
+you.
+Finally you should known that the most simple procedure doesn’t take any additional inforamation
+and it doesn’t produce any value
+
+A procedure is a self contained entity that acts almost like a program within a program
+
+Name PROC
+
+; procedure body
+
+Ret ;return from procedure
+Name ENDP
+
+The ret statement tells the code to branch back to where it came from
+
+The END main directives. All assembly files have to have the END directive to mark the end of the
+code
