@@ -1,0 +1,94 @@
+Just a definition
+
+Beginnning programmers sometimes have trouble understanding that a structure like the one above
+is nothing more than a definition
+
+This means that it occupies no space in memeory.
+It is used by the assembler to calculate the amoun of space needed in memory when you create an
+instance of it.
+?
+Because it is a definition it should be placed in global scope.
+This means outside of all procedures. It is typical to see a struct defition inside and include file. In
+this example it is placed at the top of the file just after the include.
+
+A structure becomes more than a defition when you create an instance of it. You create an instance
+similar to the way you would any primitive variable:
+
+Point STRUCT
+X DWORD ?
+Y DWORD ?
+Point ENDS
+
+.data
+
+CoordA point <2, 1> ;x=2, y=1
+CoordB point <4,2> ;x=4, y=2
+CoordC point <> ;x=?, y=?
+
+To place data into an instance of a struct you can simply use the mov instruction along with the .dot
+operator. The .operator allows you to specify which member of the struct you wish to access:
+
+Include asmlib.inc
+
+Point STRUCT
+X DWORD ?
+
+Y DWORD ?
+Point ENDS
+
+.data
+
+coord Point <>
+
+.code
+
+Main PROC
+
+Mov coord.x, 12 ; mov coord.”variable” with a value (dot operant transcribes my.
+; variable with values
+Mov coord.y, 10
+
+Exit
+
+Main ENDP
+END main
+You can use registers to mov data into a struct member variable
+
+The following shows you the persons info data
+INCLUDE asmlib.inc
+
+Person STRUCT
+First BYTE 16 DUP(0) ;member variables
+Last BYTE 16 DUP(0)
+Person ENDS
+
+PrintPerson PROTO
+Psn : Person ;sets up an item from the object
+
+.data
+outP BYTE “Here is your person “, 0
+psn person <“joe “, “smith”>
+
+.code
+
+Main PROC
+
+INVOKE printPerson, psn
+exit
+
+Main ENDP
+
+PrintPerson PROC uses EDX
+Psn: Person
+
+Mov edx, OFFSET outP
+Call WriteLine
+Lea edx, psn.first
+Call writeString
+Lea edx, psn.last
+Call WriteString
+Endl
+Ret
+
+PrintPerson END[
+END main
