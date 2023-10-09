@@ -1,0 +1,17 @@
+A macro is a small piece of defined code that can be called over and over again like a procedure.
+The difference is that a macro does code substitution.
+This means that any time the macro is called the code that was written gets placed in line.
+This means that your code will grow the more times you use it
+For this reason you should write macros that don’t contain a great deal of code
+
+Macros are typically placed in global scope(outside of any procedure and at the top of the file) or
+inside an include file that gets included into your code
+
+Let’s take a look at a macro that was created for asmlib to make life easier
+
+Endl MACRO
+Call NewLine
+ENDM
+
+This is a very simple macro that calls the new line procedure that is part of the asmlib library
+A macro then has this syntax
