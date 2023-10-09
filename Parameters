@@ -1,0 +1,64 @@
+Parameters
+
+You can also pass parameters to a macro using the following syntax
+
+Name MACRO arg-1, arg-2. . . .
+;macro body
+
+ENDM
+
+When passing parameters to a macro it is important to know that you cannot use immediate values.
+You can use a register or a variable.
+The following is a macro that shows how to squealed a value and return the square in the eax:
+
+INCLUDE asmlib.inc
+
+MySquare MACRO Val
+
+mov eax, Val
+MUL val
+ENDM
+
+.data
+val DWORD 5
+
+.code
+
+Main PROC
+mySquare val
+call writeInt
+endl
+
+exit
+Main ENDP
+END main
+
+This MySquare macro only has one argument. If you write macros that have more than one
+argument you simply need to place a comma between them
+
+REQUIRED PARAMETERS
+
+If you want to insure that a parameter is passed to a macro you can use the REQ qualifier following
+the parameter statement. This tells the assemblyer that a parameter must be supplied. If it is not
+that an error will be thrown. Here is MySquare macro again but with a require parameter
+
+INCLUDE asmlib.inc
+
+MySquare MACRO Val : REQ
+mov eax, Val
+MUL val
+ENDM
+
+.data
+val DWORD 5
+
+.code
+
+Main PROC
+mySquare val
+call writeInt
+endl
+
+exit
+Main ENDP
+END main
