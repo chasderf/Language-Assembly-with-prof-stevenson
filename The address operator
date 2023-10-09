@@ -1,0 +1,63 @@
+The ADDRESS operator is used when you want to pass the address of a variable to a procedure
+using INVOKE. You would use this instead of the OFFSET but it is equivalent to pushing the OFFSET
+of variables onto the stack.
+
+The following code is the swap procedure again. This time using INVOKE and the ADDR operator
+
+INCLUDE asmlib.inc
+
+Swap PROTO, pValx: PTR DWORD, pValy: PTR DWORD
+
+.data
+
+val1 DWORD ?
+val2 DWORD ?
+prompt BYTE “Enter two whole numbers “, 0ah, 0dh, 0
+
+.code
+
+Main PROC
+mov eax, 0
+mov EDX, OFFSET prompt
+
+call WriteString
+call ReadInt
+mov val1, eax
+call ReadInt
+mov val2, eax
+
+INVOKE swap, ADDR val1, ADDR val2
+
+mov EAX, val1
+call WriteDec
+call Crlf
+mov eax, val2
+call WriteDec
+call Crlf
+
+exit
+Main ENDP
+
+SWAP PROC USES eax esi edi
+pValx: PTR DWORD, ;pointer to first int
+pValy: PTR DWORD ;pointer to second int
+
+mov esi, pValX ;get pointer to val2
+mov edi, pValy ;val1 last on stack
+mov eax, [esi] ;dereference pointer store value
+XCHG eax, [edi] ;exchange with second value
+mov [esi], eax ;replace first int
+ret 8
+
+Swap ENDP
+END main
+
+Notice that since we are passing the address of a variable that the PTR directive needs to be used
+in the called procedure to specify that what is coming is and address to a DWORD
+
+NOTE:
+
+The EAX and EDX registers are overwritten if you pass the arguments that are smaller than 32 bits.
+This is because the stack is 32 bits and when invoke is used it has to widen the anything less than a
+DWORD to a DWORD . If you are passing smaller data types you should save and restore the eax
+and edx registers before and after the procedure call
